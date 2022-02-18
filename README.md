@@ -15,12 +15,12 @@ type-safety for *any* number of functions.
 import { pipeline, reversePipeline } from 'pipefunc';
 
 
-const toNumber = (x:string) => +x
-const toString = (x:{toString():string}) => x.toString()
-const repeat = (count:number)=> <T>(el:T) => Array<T>(count).fill(el)
+const toNumber = (x: string) => +x
+const toString = (x: {toString(): string}) => x.toString()
+const repeat = (count: number)=> <T>(el: T) => Array<T>(count).fill(el)
 const joinStringArray = (x: string[]) => x.join('')
-const toLower = (x:string) => x.toLowerCase()
-const upperFirst = (x:string) => x.charAt(0).toUpperCase() + x.substring(1)
+const toLower = (x: string) => x.toLowerCase()
+const upperFirst = (x: string) => x.charAt(0).toUpperCase() + x.substring(1)
 
 // creating the pipeline, from first function applied
 // (can have multiple arguments) to last.
