@@ -7,6 +7,8 @@
     "build/**/*"
   ],
   "scripts": {
+    "prepare": "npm run build",
+    "version": "npm run format && git add -A src",
     "test": "echo \"There are no tests :(\" && exit 1",
     "build": "tsc",
     "format": "prettier --write 'src/**/*.{ts,js}'"
