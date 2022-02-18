@@ -1,6 +1,6 @@
 {
   "name": "pipefunc",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A typescript library providing type-safe functional pipelines to chain multiple functions",
   "main": "build/main.js",
   "types": "build/main.d.ts",
@@ -18,7 +18,10 @@
     "type": "git",
     "url": "git+https://github.com/thetos7/pipefunc.git"
   },
-  "keywords": ["Pipeline", "Functional programming"],
+  "keywords": [
+    "Pipeline",
+    "Functional programming"
+  ],
   "author": "Thetos",
   "license": "MIT",
   "bugs": {
