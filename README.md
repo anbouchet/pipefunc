@@ -22,7 +22,7 @@ const joinStringArray = (x: string[]) => x.join('')
 const toLower = (x: string) => x.toLowerCase()
 const upperFirst = (x: string) => x.charAt(0).toUpperCase() + x.substring(1)
 
-// creating the pipeline, from first function applied
+// Creating the pipeline, from first function applied
 // (can have multiple arguments) to last.
 const process = pipeline
   (toNumber)
@@ -33,10 +33,10 @@ const process = pipeline
   (upperFirst)
   ()
 
-console.log(process('wat') + ' Batman !')
+console.log(process('wat') + ' Batman!')
 
-// defining the equivalent pipeline using reversePipeline
-// (functions can be specified in reverse order, may be useful to make more /
+// Defining the equivalent pipeline using reversePipeline
+// (functions can be specified in reverse order, may be useful to make more
 // readable code in some cases)
 const processBis = reversePipeline
   (upperFirst)
@@ -45,9 +45,12 @@ const processBis = reversePipeline
   (repeat(15))
   (toString)
   (toNumber)
-  ()
+  // Providing this tuple to the build call allows you to change the name
+  // and types of your pipeline parameters.
+  // By default it keeps the first function's parameter list
+  <[input: string]>()
 
-console.log(processBis('wat') + ' Batman !')
+console.log(processBis('wat') + ' Batman!')
 ```
 
 ## Note on `this`
@@ -72,3 +75,6 @@ or
 ```ts
 pipeline(obj.add.bind(obj))
 ```
+
+## Additional notes
+batman joke comes for the [wat presentation by Gary Bernhardt](https://www.destroyallsoftware.com/talks/wat), it's hilarious, highly recommend watching it.
