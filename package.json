@@ -2,7 +2,8 @@
   "name": "pipefunc",
   "version": "1.0.0",
   "description": "A typescript library providing type-safe functional pipelines",
-  "main": "main.js",
+  "main": "build/main.js",
+  "types": "build/main.d.ts",
   "files": [
     "build/**/*"
   ],
