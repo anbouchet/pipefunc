@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "target": "ES5",
+        "module": "CommonJS",
+        "declaration": true,
+        "outDir": "build",
+        "strict": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "useUnknownInCatchVariables": true
+    },
+    "include": ["src"],
+    "exclude": ["node_modules"]
+}
