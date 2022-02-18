@@ -17,7 +17,7 @@ import { pipeline, reversePipeline } from 'pipefunc';
 
 const toNumber = (x: string) => +x
 const toString = (x: {toString(): string}) => x.toString()
-const repeat = (count: number)=> <T>(el: T) => Array<T>(count).fill(el)
+const repeat = (count: number) => <T>(el: T) => Array<T>(count).fill(el)
 const joinStringArray = (x: string[]) => x.join('')
 const toLower = (x: string) => x.toLowerCase()
 const upperFirst = (x: string) => x.charAt(0).toUpperCase() + x.substring(1)
