@@ -1,6 +1,6 @@
 {
   "name": "pipefunc",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A typescript library providing type-safe functional pipelines to chain multiple functions",
   "main": "build/main.js",
   "types": "build/main.d.ts",
