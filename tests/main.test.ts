@@ -67,6 +67,8 @@ describe('pipefunc tests', () => {
       expect(parseNum).toHaveBeenCalledWith(value);
       expect(timesFive).toHaveBeenCalledTimes(1);
       expect(timesFive).toHaveBeenCalledWith(someNumber());
+      const firstCallOrder = parseNum.mock.invocationCallOrder[0];
+      expect(timesFive.mock.invocationCallOrder[0]).toBe(firstCallOrder + 1);
     });
   });
 
