@@ -6,13 +6,13 @@ npm install pipefunc
 ```
 
 ## What is `pipefunc` ?
-pipefunc is a typescript library providing functional pipelines to combine functions useable within typescript or javascript projects, with ensured
+pipefunc is a typescript library providing functional pipelines and single-use pipes to combine and compose functions useable within typescript or javascript projects, with ensured
 type-safety for *any* number of functions.
 
 ## Usage
 
 ```ts
-import { pipeline, reversePipeline } from 'pipefunc';
+import { pipeline, reversePipeline, pipe } from 'pipefunc';
 
 
 const toNumber = (x: string) => +x
@@ -51,12 +51,26 @@ const processBis = reversePipeline
   <[input: string]>()
 
 console.log(processBis('wat') + ' Batman!')
+
+// Alternatively, using the pipe function will allow you to easily
+// compose functions for a one-time use. As opposed to pipelines,
+// functions composed using the pipe function are applied
+// *immediately*
+const result = pipe('wat')
+  (toNumber)
+  (toString)
+  (repeat(15))
+  (joinStringArray)
+  (toLower)
+  (upperFirst)
+  ()
+
+console.log(`${result} Batman!`)
 ```
 
 ## Note on `this`
-if `this` matters in one of your functions, simply passing the reference
-will not work, wrap you function beforehand to ensure the correct with is
-used.
+if the value of `this` matters in one of your functions, you will
+have to wrap it to ensure the value of `this` is the expected one.
 
 ### Will not work
 ```ts
