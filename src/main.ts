@@ -6,7 +6,7 @@ type MultiFunction<I extends [...x: unknown[]], R = unknown> = (...x: I) => R;
 /**
  * Builds the pipeline by allowing to add functions to be executed after others in the pipeline
  */
-interface PipelineBuilder<P extends unknown[], R> {
+export interface PipelineBuilder<P extends unknown[], R> {
   /**
    * Builds the pipeline
    * @returns the built pipeline as a function
@@ -43,7 +43,7 @@ export function pipeline<P extends unknown[], R>(a: MultiFunction<P, R>): Pipeli
 /**
  * Builds the pipeline, but cannot add to it.
  */
-interface TerminalPipelineBuilder<P extends unknown[], R> {
+export interface TerminalPipelineBuilder<P extends unknown[], R> {
   /**
    * Builds the pipeline
    * @returns the built pipeline as a function
@@ -54,7 +54,7 @@ interface TerminalPipelineBuilder<P extends unknown[], R> {
 /**
  * Builds the pipeline by allowing to add functions to be executed before others in the pipeline
  */
-interface ReversePipelineBuilder<P extends unknown[], R> {
+export interface ReversePipelineBuilder<P extends unknown[], R> {
   /**
    * Builds the pipeline
    * @returns the built pipeline as a function
