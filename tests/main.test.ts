@@ -3,10 +3,10 @@ import { pipe, pipeline, reversePipeline } from '../src/main';
 const someNumber = () => 42;
 const someNumberTimesFive = () => someNumber() * 5;
 
-function getMocks(): [(x: string) => number, (x: number) => number] {
-  const parseNum = jest.fn().mockReturnValue(someNumber());
-  const timesFive = jest.fn().mockReturnValue(someNumberTimesFive());
-  return [parseNum, timesFive];
+function getMocks() {
+  const parseNum: jest.Mock<number, [string]> = jest.fn().mockReturnValue(someNumber());
+  const timesFive: jest.Mock<number, [number]> = jest.fn().mockReturnValue(someNumberTimesFive());
+  return [parseNum, timesFive] as const;
 }
 
 const someString = () => '42';
@@ -16,7 +16,6 @@ describe('pipefunc tests', () => {
     test('Pipeline function with one function', () => {
       // Given
       const parseNum = getMocks()[0];
-      const value = someString();
 
       // When
       const builder = pipeline(parseNum);
@@ -29,7 +28,6 @@ describe('pipefunc tests', () => {
     test('Building pipeline with one function', () => {
       // Given
       const parseNum = getMocks()[0];
-      const value = someString();
 
       // When
       const func = pipeline(parseNum)();
