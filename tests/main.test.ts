@@ -4,8 +4,8 @@ const someNumber = () => 42;
 const someNumberTimesFive = () => someNumber() * 5;
 
 function getMocks() {
-  const parseNum: jest.Mocked<(x: string) => number> = jest.fn().mockReturnValue(someNumber());
-  const timesFive: jest.Mocked<(x: number) => number> = jest.fn().mockReturnValue(someNumberTimesFive());
+  const parseNum: jest.Mock<number, [string]> = jest.fn().mockReturnValue(someNumber());
+  const timesFive: jest.Mock<number, [number]> = jest.fn().mockReturnValue(someNumberTimesFive());
   return [parseNum, timesFive] as const;
 }
 
