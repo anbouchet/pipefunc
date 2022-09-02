@@ -101,3 +101,44 @@ export function reversePipeline<P extends [unknown], R>(a: UnaryOperator<P, R>):
     return reversePipeline(((...x: U) => a(b(...x))) as unknown as UnaryOperator<[U[0]], R>);
   } as ReversePipelineBuilder<P, R>;
 }
+
+/**
+ * Wraps a value to be passed into functions
+ */
+export interface Pipe<T> {
+  /**
+   * Calls the given function with the wrapped value as parameter.
+   *
+   * @param func Function to apply to wrapped value
+   * @returns A new Pipe with the function's return value
+   */
+  <U>(func: UnaryOperator<[T], U>): Pipe<U>;
+
+  /**
+   * Get the wrapped value
+   *
+   * @returns The currently wrapped value
+   */
+  (): T;
+}
+
+/**
+ * Wraps a value inside of a new pipe, allowing to chain/compose functions easily
+ *
+ * @example
+ * ```ts
+ * // result contains the value of fun2(fun1(42))
+ * const result = pipe(42)(fun1)(fun2)();
+ * ```
+ *
+ * @param value The value to wrap
+ * @returns A new pipe
+ */
+export function pipe<T>(value: T): Pipe<T> {
+  return function <U>(func?: UnaryOperator<[T], U>) {
+    if (func == null) {
+      return value;
+    }
+    return pipe(func(value));
+  } as Pipe<T>;
+}
