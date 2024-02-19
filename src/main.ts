@@ -7,7 +7,8 @@ type MultiFunction<I extends [...x: unknown[]], R = unknown> = (...x: I) => R;
 type AnyFunction = (...a: unknown[]) => unknown;
 
 /**
- * Builds the pipeline by allowing to add functions to be executed after others in the pipeline
+ * Builds the pipeline by allowing to add functions to be executed after others in the
+ * pipeline
  */
 export interface PipelineBuilder<P extends unknown[], R> {
   /**
@@ -16,7 +17,8 @@ export interface PipelineBuilder<P extends unknown[], R> {
    */
   <U extends P = [...x: P]>(): (...x: U) => R;
   /**
-   * Adds {@link x} to the pipeline, {@link x} will be executed after all other functions in the pipeline.
+   * Adds {@link x} to the pipeline, {@link x} will be executed after all other
+   * functions in the pipeline.
    * @param x The function to add to the pipeline
    * @returns A new builder
    */
@@ -24,7 +26,8 @@ export interface PipelineBuilder<P extends unknown[], R> {
 }
 
 /**
- * Starts the creation of a new processing pipeline. Operations happen in the order that the functions are passed in.
+ * Starts the creation of a new processing pipeline. Operations happen in the order
+ * that the functions are passed in.
  * @example
  * ```ts
  * // value in t is a function that executes fun1, then fun2 and returns it's return value
@@ -38,7 +41,8 @@ export function pipeline<P extends unknown[], R>(func: MultiFunction<P, R>): Pip
 }
 
 /**
- * Create an executor function, which when called with the right arguments, calls each function of the pipe in order, piping through the results
+ * Create an executor function, which when called with the right arguments, calls
+ * each function of the pipe in order, piping through the results
  * @param pipeline The array of functions to execute in order
  * @returns A function that executes and pipes through the results
  */
@@ -77,7 +81,8 @@ export interface TerminalPipelineBuilder<P extends unknown[], R> {
 }
 
 /**
- * Builds the pipeline by allowing to add functions to be executed before others in the pipeline
+ * Builds the pipeline by allowing to add functions to be executed before others in
+ * the pipeline
  */
 export interface ReversePipelineBuilder<P extends unknown[], R> {
   /**
@@ -101,7 +106,8 @@ export interface ReversePipelineBuilder<P extends unknown[], R> {
 }
 
 /**
- * Starts the creation of a new processing pipeline. Operations happen in the reverse order that the functions are passed in.
+ * Starts the creation of a new processing pipeline. Operations happen in the reverse
+ * order that the functions are passed in.
  * @example
  * ```ts
  * // value in t is a function that executes fun2, then fun1 and returns it's return value
