@@ -1,5 +1,6 @@
 /** A function which takes only one argument */
 type UnaryOperator<I extends [x: unknown] = [x: unknown], R = unknown> = (...x: I) => R;
+
 /** A function that can take multiple arguments */
 type MultiFunction<I extends [...x: unknown[]], R = unknown> = (...x: I) => R;
 
@@ -7,8 +8,8 @@ type MultiFunction<I extends [...x: unknown[]], R = unknown> = (...x: I) => R;
 type AnyFunction = (...a: unknown[]) => unknown;
 
 /**
- * Builds the pipeline by allowing to add functions to be executed after others in the
- * pipeline
+ * Builds the pipeline by allowing to add functions to be executed after others in
+ * the pipeline
  */
 export interface PipelineBuilder<P extends unknown[], R> {
   /**
@@ -30,7 +31,8 @@ export interface PipelineBuilder<P extends unknown[], R> {
  * that the functions are passed in.
  * @example
  * ```ts
- * // value in t is a function that executes fun1, then fun2 and returns it's return value
+ * // value in t is a function that executes fun1, then fun2 and
+ * // returns its return value
  * const t = pipeline(fun1)(fun2)()
  * ```
  * @param func The first function in the pipeline
@@ -55,7 +57,8 @@ const makeExec =
  * Creates the builder function, which memorizes the current pipeline.
  * @param func The next function to add to the pipeline array
  * @param previous The previous pipeline array, defaults to an empty array
- * @returns A function which decides whether to continue to create a pipeline or return an execution function based on its arguments
+ * @returns A function which decides whether to continue to create a pipeline or
+ * return an execution function based on its arguments
  */
 function pipelineBuilder<P extends unknown[], R>(func: AnyFunction, previous: AnyFunction[] = []): PipelineBuilder<P, R> {
   const pipeline = [...previous, func];
@@ -91,14 +94,17 @@ export interface ReversePipelineBuilder<P extends unknown[], R> {
    */
   <U extends P = [...x: P]>(): (...x: U) => R;
   /**
-   * Adds {@link x} to the pipeline, {@link x} will be executed before all other functions in the pipeline.
+   * Adds {@link x} to the pipeline, {@link x} will be executed before all other
+   * functions in the pipeline.
    * @param x The function to add to the pipeline
    * @returns A new builder
    */
   <U extends [unknown]>(x: UnaryOperator<U, P[0]>): ReversePipelineBuilder<U, R>;
   /**
-   * Adds {@link x} to the pipeline, {@link x} will be executed before all other functions in the pipeline.
-   * No other function can be added after adding a function with more than 1 parameter.
+   * Adds {@link x} to the pipeline, {@link x} will be executed before all other
+   * functions in the pipeline.
+   * No other function can be added after adding a function with more than 1
+   * parameter.
    * @param x The function to add to the pipeline
    * @returns A new terminal builder
    */
@@ -110,7 +116,8 @@ export interface ReversePipelineBuilder<P extends unknown[], R> {
  * order that the functions are passed in.
  * @example
  * ```ts
- * // value in t is a function that executes fun2, then fun1 and returns it's return value
+ * // value in t is a function that executes fun2, then fun1 and
+ * // returns its return value
  * const t = reversePipeline(fun1)(fun2)()
  * ```
  * @param func Last function to be executed in the pipeline
@@ -120,6 +127,13 @@ export function reversePipeline<P extends [unknown], R>(func: UnaryOperator<P, R
   return reversePipelineBuilder<P, R>(func as AnyFunction);
 }
 
+/**
+ * Creates the builder function, which memorizes the current pipeline.
+ * @param func The function to add to the start of the pipeline array
+ * @param next The previous pipeline array, defaults to an empty array
+ * @returns A function which decides whether to continue to create a pipeline or
+ * return an execution function based on its arguments
+ */
 function reversePipelineBuilder<P extends unknown[], R>(func: AnyFunction, next: AnyFunction[] = []): ReversePipelineBuilder<P, R> {
   const pipeline = [func, ...next];
 
