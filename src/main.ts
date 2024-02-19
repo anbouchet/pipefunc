@@ -1,5 +1,5 @@
 /** A function which takes only one argument */
-type UnaryOperator<I extends [x: unknown] = [x: unknown], R = unknown> = (...x: I) => R;
+type UnaryFunction<I extends [x: unknown] = [x: unknown], R = unknown> = (...x: I) => R;
 
 /** A function that can take multiple arguments */
 type MultiFunction<I extends [...x: unknown[]], R = unknown> = (...x: I) => R;
@@ -23,7 +23,7 @@ export interface PipelineBuilder<P extends unknown[], R> {
    * @param x The function to add to the pipeline
    * @returns A new builder
    */
-  <U>(x: UnaryOperator<[R], U>): PipelineBuilder<P, U>;
+  <U>(x: UnaryFunction<[R], U>): PipelineBuilder<P, U>;
 }
 
 /**
@@ -63,7 +63,7 @@ const makeExec =
 function pipelineBuilder<P extends unknown[], R>(func: AnyFunction, previous: AnyFunction[] = []): PipelineBuilder<P, R> {
   const pipeline = [...previous, func];
 
-  return function <U>(func?: UnaryOperator<[R], U>) {
+  return function <U>(func?: UnaryFunction<[R], U>) {
     if (func != null) {
       return pipelineBuilder<P, U>(func as AnyFunction, pipeline);
     }
@@ -99,7 +99,7 @@ export interface ReversePipelineBuilder<P extends unknown[], R> {
    * @param x The function to add to the pipeline
    * @returns A new builder
    */
-  <U extends [unknown]>(x: UnaryOperator<U, P[0]>): ReversePipelineBuilder<U, R>;
+  <U extends [unknown]>(x: UnaryFunction<U, P[0]>): ReversePipelineBuilder<U, R>;
   /**
    * Adds {@link x} to the pipeline, {@link x} will be executed before all other
    * functions in the pipeline.
@@ -123,7 +123,7 @@ export interface ReversePipelineBuilder<P extends unknown[], R> {
  * @param func Last function to be executed in the pipeline
  * @returns A new pipeline builder function
  */
-export function reversePipeline<P extends [unknown], R>(func: UnaryOperator<P, R>): ReversePipelineBuilder<P, R> {
+export function reversePipeline<P extends [unknown], R>(func: UnaryFunction<P, R>): ReversePipelineBuilder<P, R> {
   return reversePipelineBuilder<P, R>(func as AnyFunction);
 }
 
@@ -159,7 +159,7 @@ export interface Pipe<T> {
    * @param func Function to apply to wrapped value
    * @returns A new Pipe with the function's return value
    */
-  <U>(func: UnaryOperator<[T], U>): Pipe<U>;
+  <U>(func: UnaryFunction<[T], U>): Pipe<U>;
 
   /**
    * Get the wrapped value
@@ -182,7 +182,7 @@ export interface Pipe<T> {
  * @returns A new pipe
  */
 export function pipe<T>(value: T): Pipe<T> {
-  return function <U>(func?: UnaryOperator<[T], U>) {
+  return function <U>(func?: UnaryFunction<[T], U>) {
     if (func == null) {
       return value;
     }
