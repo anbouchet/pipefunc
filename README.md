@@ -93,4 +93,5 @@ pipeline(obj.add.bind(obj))
 ## Additional notes
 Batman joke comes for the [wat presentation by Gary Bernhardt](https://www.destroyallsoftware.com/talks/wat), it's hilarious, highly recommend watching it.
 
-This package is considered finished and feature-complete.
+This package is considered finished and feature-complete. Meaning mostly only
+security updates and internal refactors may
